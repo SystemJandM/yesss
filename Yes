@@ -1,0 +1,60 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Key System Advanced", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+
+local MainTab = Window:MakeTab({
+    Name = "Key",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+
+_G.Key = "testing8763536"
+_G.KeyInput = "string"
+
+function BloodBath()
+local t = true local f = false local shoppingList = { 	 redEnvelope 		= {{["merchant"] = "lunar", ["offerId"] = 1, ["amount"] = 1}, 			t 				 } 	,pineappleSeeds		= {{["merchant"] = "spring_shop_pineapple", ["offerId"] = 2, ["amount"] = 6}, 	t 				 } 	,radishSeeds 		= {{["merchant"] = "spring_shop_radish", ["offerId"] = 10, ["amount"] = 8}, 	t 				 } 	,melonSeeds		= {{["merchant"] = "melon_shop", ["offerId"] = 2, ["amount"] = 3}, 		t 				 } 	,pumpkinSeeds		= {{["merchant"] = "autumn_shop", ["offerId"] = 10, ["amount"] = 4}, 	t 				 } 	,flowerRoseBlueFertile	= {{["merchant"] = "flower_blue_rose", ["offerId"] = 1, ["amount"] = 2}, 	t 				 } 	,flowerRoseRedFertile	= {{["merchant"] = "flower_red_rose", ["offerId"] = 1, ["amount"] = 2}, 	t 				 } 	,flowerRoseWhiteFertile = {{["merchant"] = "flower_white_rose", ["offerId"] = 1, ["amount"] = 2}, 	t 				 } 	,potionFertility 	= {{["merchant"] = "animal", ["offerId"] = 40, ["amount"] = 1}, 		t 				 } } function buySeasonal(shoppingItem) 	game:GetService("ReplicatedStorage").rbxts_include.node_modules.net.out._NetManaged.CLIENT_MERCHANT_ORDER_REQUEST:InvokeServer(shoppingItem) end game.StarterGui:SetCore("SendNotification", { Title = "Buying Seasonal", Text = "Attempting to buy seasonal items" }) for shoppingItem, buy in pairs(shoppingList) do 	if buy[2] then 		local amount = 1 		if shoppingItem == "potionFertility" then 			amount = 31 --max you can buy is 31 potions (level 99 animal care) 		end 		for i = 1, amount, 1 do 			buySeasonal(buy[1]) 		end 	end	 end
+end
+
+function CorrectKeyNotification()
+OrionLib:MakeNotification({
+    Name = "Correct Key",
+    Content = "Correct Key",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+})
+end
+
+function IncorrectKeyNotification()
+OrionLib:MakeNotification({
+    Name = "Inccorect Key",
+    Content = "Wrong Key",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+})
+end
+
+
+
+MainTab:AddTextbox({
+    Name = "Enter Key",
+    Default = "",
+    TextDisappear = true,
+    Callback = function(Value)
+        _G.KeyInput = Value
+    end      
+})
+
+MainTab:AddButton({
+    Name = "Check Key",
+    Callback = function()
+          if _G.KeyInput == _G.Key then
+BloodBath()
+    CorrectKeyNotification()
+    else
+        IncorrectKeyNotification()
+
+
+          end
+      end    
+})
